@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CaixaTemporária</title>
+<style>
+body{font-family:Arial,sans-serif;background:#f4f3ff;color:#252344;margin:0;padding:20px;text-align:center}
+main{max-width:500px;margin:35px auto;background:white;padding:25px;border-radius:20px;box-shadow:0 5px 25px #ddd}
+h1{color:#6558e8}
+input{box-sizing:border-box;width:100%;padding:14px;border:1px solid #ddd;border-radius:9px;margin:15px 0}
+button{background:#6558e8;color:white;border:0;padding:13px 18px;border-radius:9px;margin:5px;cursor:pointer}
+p{color:#666;line-height:1.5}
+.ad{background:#f0efff;padding:18px;border-radius:10px;margin-top:25px}
+</style>
+</head>
+<body>
+<main>
+<h1>✉ CaixaTemporária</h1>
+<p>Crie um endereço temporário de demonstração.</p>
+<input id="email" readonly placeholder="Seu endereço aparecerá aqui">
+<button onclick="gerar()">Gerar endereço</button>
+<button onclick="copiar()">Copiar endereço</button>
+<p id="status">Pronto para começar!</p>
+<hr>
+<h3>📥 Caixa de entrada</h3>
+<p>As mensagens aparecerão aqui quando o serviço real for conectado.</p>
+<div class="ad">
+<strong>Espaço para anúncios</strong>
+<p>Ajude a manter o serviço gratuito.</p>
+</div>
+<p><small>Protótipo: ainda não recebe e-mails reais.</small></p>
+</main>
+<script>
+function gerar(){
+let letras="abcdefghijkmnpqrstuvwxyz23456789";
+let nome="";
+for(let i=0;i<10;i++){
+nome+=letras[Math.floor(Math.random()*letras.length)];
+}
+document.getElementById("email").value=nome+"@exemplo.test";
+document.getElementById("status").textContent=
+"Endereço fictício gerado para demonstração.";
+}
+async function copiar(){
+let campo=document.getElementById("email");
+if(!campo.value){gerar();}
+campo=document.getElementById("email");
+try{
+await navigator.clipboard.writeText(campo.value);
+document.getElementById("status").textContent="Endereço copiado!";
+}catch(e){
+campo.select();
+document.getElementById("status").textContent=
+"Selecione o endereço e copie manualmente.";
+}
+}
+</script>
+</body>
+</html>
